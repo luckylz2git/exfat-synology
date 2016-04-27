@@ -1,5 +1,5 @@
 #exfat-synology
-##Perfect shell scripts to manual/automatical mount/unmount exfat disk partition on Synology DiskStation NAS (x86 platform)
+##Perfect shell scripts to manual/automatic mount/unmount exfat disk partition on Synology DiskStation NAS (x86 platform)
 
 ##Tested on VitualBox + XPEnBoot + DS3615xs + DSM 5.2 5644 Update 8, use this at your own risks.
 
