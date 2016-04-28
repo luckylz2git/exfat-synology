@@ -47,6 +47,7 @@ mountpoint: mount point of exfat disk partition, e.g. /volume1/usbexfat
 ```
 
 Task 1 name: mount-exfat
+
 Run command:
 ```
 /usr/local/exfat-synology/exfat.sh mount root 12345 /volume1/usbexfat
@@ -54,6 +55,7 @@ Run command:
 Description: run this to manual mount exfat disk partition.
 
 Task 2 name: eject-exfat
+
 Run command:
 ```
 /usr/local/exfat-synology/exfat.sh eject root 12345 /volume1/usbexfat
@@ -61,6 +63,7 @@ Run command:
 Description: safely eject exfat disk partition, do not use the Synology DiskStation Eject function!
 
 Task 3 name: autorun-mode
+
 Run command:
 ```
 /usr/local/exfat-synology/exfat.sh autorun root 12345 /volume1/usbexfat
@@ -68,6 +71,7 @@ Run command:
 Description: turn on auto mount function, when exfat disk partition is plug-in, it will be automatic mounted. NAS reboot is needed to take effect.
 
 Task 4 name: manual-mode
+
 Run command:
 ```
 /usr/local/exfat-synology/exfat.sh manual root 12345
@@ -88,9 +92,19 @@ Description: turn off auto mount function, you can still mount exfat disk partit
 
 ####5. [Control Panel] -> [Task Scheduler], run the task [eject-exfat];
 
-##Auto Mount & Eject
+##Switch Between Auto and Manual Mode
 
 ####1. [Control Panel] -> [Task Scheduler], run the task [autorun-mode], reboot the NAS;
+
+####2. Now the NAS is autorun-mode;
+
+####3. [Control Panel] -> [Task Scheduler], run the task [manual-mode];
+
+####4. Now the NAS is manual-mode;
+
+##Auto Mount & Eject
+
+####1. Make sure NAS is autorun-mode;
 
 ####2. Plug-in USB exfat disk partition, and wait for 15 seconds;
 
@@ -99,9 +113,3 @@ Description: turn off auto mount function, you can still mount exfat disk partit
 ####4. After use, close all the [File Station], and any connections to the mountpoint, e.g. Telnet;
 
 ####5. [Control Panel] -> [Task Scheduler], run the task [eject-exfat];
-
-##Switch Back to Manual Mount
-
-####1. [Control Panel] -> [Task Scheduler], run the task [manual-mode];
-
-####2. Done!
