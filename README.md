@@ -8,11 +8,11 @@
 
 **Initialize Setup**
 
-(1) Enabled Telnet service on Synology DiskStation, [Control Panel] -> [Terminal & SNMP] -> [Enable Telnet service];
+**[ 1 ]** Enabled Telnet service on Synology DiskStation, [Control Panel] -> [Terminal & SNMP] -> [Enable Telnet service];
 
-(2) Download this repository zip file, extract all shell(*.sh) files, and save to your NAS shared folder /path_to/shell_files/;
+**[ 2 ]** Download this repository zip file, extract all *.sh files, and save to your NAS shared folder /path_to/shell_files/;
 
-(3) Login your NAS via Telnet, run the following commands to get exfat-fuse bin file:
+**[ 3 ]** Login your NAS via Telnet, run the following commands to get exfat-fuse bin file:
 
 ```
 mkdir -p /usr/local/exfat-synology/
@@ -29,9 +29,9 @@ It been tested Synology x86 platform, can directly use ubuntu i386 version exfat
 
 I also keep exfat-fuse_1.0.1-1_i386.deb file in my repository.
 
-(4) Go back to Synology DiskStation, [Control Panel] -> [Shared Folder], create a shared folder on volume1, e.g. usbexfat. And /volume1/usbexfat will be used as {mountpoint} of the following step; 
+**[ 4 ]** Go back to Synology DiskStation, [Control Panel] -> [Shared Folder], create a shared folder on volume1, e.g. usbexfat. And /volume1/usbexfat will be used as {mountpoint} of the following step; 
 
-(5) Then [Control Panel] -> [Task Scheduler], create 4 tasks of User-defined script. In [General] tab, unchecked [Enabled] option; in [Schedule] tab, change to [Run on the following date] -> [Do not repeat] option.
+**[ 5 ]** Then [Control Panel] -> [Task Scheduler], create 4 tasks of User-defined script. In [General] tab, unchecked [Enabled] option; in [Schedule] tab, change to [Run on the following date] -> [Do not repeat] option.
 
 Shell script usage:
 ```
@@ -78,38 +78,38 @@ Run command:
 ```
 Description: turn off auto mount function, you can still mount exfat disk partition by task: mount-exfat. No need to add mountpoint as a parameter, no need to reboot.
 
-(6) Now the exfat mount functions are ready to use!
+**[ 6 ]** Now the exfat mount functions are ready to use!
 
 **Manual Mount & Eject**
 
-(1) Plug-in USB exfat disk partition;
+**[ 1 ]** Plug-in USB exfat disk partition;
 
-(2) [Control Panel] -> [Task Scheduler], run the task [mount-exfat];
+**[ 2 ]** [Control Panel] -> [Task Scheduler], run the task [mount-exfat];
 
-(3) Use the data on the mountpoint: /volume1/usbexfat;
+**[ 3 ]** Use the data on the mountpoint: /volume1/usbexfat;
 
-(4) After use, close all the [File Station], and any connections to the mountpoint, e.g. Telnet;
+**[ 4 ]** After use, close all the [File Station], and any connections to the mountpoint, e.g. Telnet;
 
-(5) [Control Panel] -> [Task Scheduler], run the task [eject-exfat];
+**[ 5 ]** [Control Panel] -> [Task Scheduler], run the task [eject-exfat];
 
 **Switch Between Auto and Manual Mode**
 
-(1) [Control Panel] -> [Task Scheduler], run the task [autorun-mode], reboot the NAS;
+**[ 1 ]** [Control Panel] -> [Task Scheduler], run the task [autorun-mode], reboot the NAS;
 
-(2) Now the NAS is autorun-mode;
+**[ 2 ]** Now the NAS is autorun-mode;
 
-(3) [Control Panel] -> [Task Scheduler], run the task [manual-mode];
+**[ 3 ]** [Control Panel] -> [Task Scheduler], run the task [manual-mode];
 
-(4) Now the NAS is manual-mode;
+**[ 4 ]** Now the NAS is manual-mode;
 
 **Auto Mount & Eject**
 
-(1) Make sure NAS is autorun-mode;
+**[ 1 ]** Make sure NAS is autorun-mode;
 
-(2) Plug-in USB exfat disk partition, and wait for 15 seconds;
+**[ 2 ]** Plug-in USB exfat disk partition, and wait for 15 seconds;
 
-(3) Use the data on the mountpoint: /volume1/usbexfat;
+**[ 3 ]** Use the data on the mountpoint: /volume1/usbexfat;
 
-(4) After use, close all the [File Station], and any connections to the mountpoint, e.g. Telnet;
+**[ 4 ]** After use, close all the [File Station], and any connections to the mountpoint, e.g. Telnet;
 
-(5) [Control Panel] -> [Task Scheduler], run the task [eject-exfat];
+**[ 5 ]** [Control Panel] -> [Task Scheduler], run the task [eject-exfat];
