@@ -13,18 +13,18 @@ if [ "${2}" == "" ]; then
     vol=`fdisk -l | grep $dev | grep 'HPFS/NTFS' | awk '{ print $1 }'`
     mnt=`mount | grep $vol`
     if ["${mnt}" == ""]; then
-      echo "Try to mount:" $vol "on" $1
       mount.exfat-fuse $vol $1 -o nonempty
       echo $vol $1 > /tmp/exfatab
+      echo `date` ": mount" $vol "to" $1 >> /tmp/exfatdebug
       sleep 1
       ls $1
       exit 0
     fi
   done
 else
-  echo "Try to mount:" $2 "on" $1
   mount.exfat-fuse $2 $1 -o nonempty
   echo $2 $1 > /tmp/exfatab
+  echo `date` ": mount" $2 "to" $1 >> /tmp/exfatdebug
   sleep 1
   ls $1
 fi
