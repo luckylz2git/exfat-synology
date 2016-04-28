@@ -1,67 +1,107 @@
 #exfat-synology
-##Perfect shell scripts to manual/automatic mount/unmount exfat disk partition on Synology DiskStation NAS (x86 platform)
 
-##Tested on VitualBox + XPEnBoot + DS3615xs + DSM 5.2 5644 Update 8, use this at your own risks.
+##Perfect shell scripts to manual/automatic mount/unmount exfat disk partition on Synology DiskStation NAS (x86 platform).
 
-#How-To Create Manual Mount & Unmount Control
-1.On Synology DiskStation WebUI, go to [Control Panel] -> [Terminal & SNMP] -> [Enable Telnet service];
+###Tested on VitualBox + XPEnBoot + DS3615xs + DSM 5.2 5644 Update 8, use this at your own risks.
 
-![image](https://raw.githubusercontent.com/luckylz2git/exfat-synology/master/images/enable_telnet.png)
+#How-To Guide
 
-2.Go to [Control Panel] -> [Shared Folder], and create a dummy shared folder as exfat mount point, e.g. /volume1/usbexfat/;
+##Initialize Setup
 
-![image](https://raw.githubusercontent.com/luckylz2git/exfat-synology/master/images/create_mount_point.png)
+####1. Enabled Telnet service on Synology DiskStation, [Control Panel] -> [Terminal & SNMP] -> [Enable Telnet service];
 
-3.Put anything inside shared folder usbexfat, to indicate the unmount status, e.g. a blank file named: exfat_usb_device_unmounted;
+####2. Download this repository zip file, extract all shell(*.sh) files, and save to your NAS shared folder /path_to/shell_files/;
 
-![image](https://raw.githubusercontent.com/luckylz2git/exfat-synology/master/images/create_blank_file.png)
-
-4.Download this repository zip files and extract to any available directory on your NAS, e.g. /volume1/files/exfat-synology-master/;
-
-5.Use telnet login your NAS as root, and run the following commands:
+####3. Login your NAS via Telnet, run the following commands to get exfat-fuse bin file:
 
 ```
-filepath=/volume1/files/exfat-synology-master/ && chmod 755 $filepath/install.sh && $filepath/install.sh $filepath
+mkdir -p /usr/local/exfat-synology/
+cp /path_to/shell_files/*.sh /usr/local/exfat-synology/
+chmod 755 /usr/local/exfat-synology/*.sh
+wget -P /tmp/ http://mirrors.kernel.org/ubuntu/pool/universe/f/fuse-exfat/exfat-fuse_1.0.1-1_i386.deb
+dpkg -x /tmp/exfat-fuse_1.0.1-1_i386.deb /tmp/fuse-exfat/
+cp /tmp/fuse-exfat/sbin/mount.exfat-fuse /usr/bin/
 ```
 
-6.Go back to [Control Panel] -> [Task Scheduler], create [User-defined script] for mount & unmount, un-check the [Enabled] and change [Schedule] tab to [Run on the following date] -> [Do not repeat]:
+####P.S.
 
-![image](https://raw.githubusercontent.com/luckylz2git/exfat-synology/master/images/task_schedule.png)
+It been tested Synology x86 platform, can directly use ubuntu i386 version exfat-fuse bin file to mount exfat disk partition.
 
-mount & unmount script usage:
+I also keep exfat-fuse_1.0.1-1_i386.deb file in my repository.
 
+####4. Go back to Synology DiskStation, [Control Panel] -> [Shared Folder], create a shared folder on volume1, e.g. usbexfat. And /volume1/usbexfat will be used as {mountpoint} of the following step; 
+
+####5. Then [Control Panel] -> [Task Scheduler], create 4 tasks of User-defined script. In [General] tab, unchecked [Enabled] option; in [Schedule] tab, change to [Run on the following date] -> [Do not repeat] option.
+
+Shell script usage:
 ```
-/usr/local/exfat-synology/exfat.sh [mount|unmount] [login] [password] [path/to/mount/point]
-```
-
-example:
-
-mount exfat
-
-```
-/usr/local/exfat-synology/exfat.sh mount root 12345 /volume1/usbexfat/
-```
-
-![image](https://raw.githubusercontent.com/luckylz2git/exfat-synology/master/images/create_mount_script.png)
-
-unmount exfat
-
-```
-/usr/local/exfat-synology/exfat.sh unmount root 12345 /volume1/usbexfat/
+/usr/local/exfat-synology/exfat.sh [option] [login] [password] [mountpoint]
+option: mount | eject | autorun | manual
+  mount: mount exfat disk partition manually;
+  eject: safely eject exfat disk partition;
+  autorun: turn on automatic mount function, after turn on need to reboot the NAS;
+  manual: turn off automatic mount function, can use manual option to mount;
+login: login name of Telnet, e.g. root;
+password: login password of Telnet, e.g. 12345;
+mountpoint: mount point of exfat disk partition, e.g. /volume1/usbexfat
 ```
 
-![image](https://raw.githubusercontent.com/luckylz2git/exfat-synology/master/images/create_unmount_script.png)
+Task 1 name: mount-exfat
+Run command:
+```
+/usr/local/exfat-synology/exfat.sh mount root 12345 /volume1/usbexfat
+```
+Description: run this to manual mount exfat disk partition.
 
-7.Manual mount exfat partition, plug-in the USB device, run the task mount exfat in the [Task Scheduler];
+Task 2 name: eject-exfat
+Run command:
+```
+/usr/local/exfat-synology/exfat.sh eject root 12345 /volume1/usbexfat
+```
+Description: safely eject exfat disk partition, do not use the Synology DiskStation Eject function!
 
-![image](https://raw.githubusercontent.com/luckylz2git/exfat-synology/master/images/mount_exfat.png)
+Task 3 name: autorun-mode
+Run command:
+```
+/usr/local/exfat-synology/exfat.sh autorun root 12345 /volume1/usbexfat
+```
+Description: turn on auto mount function, when exfat disk partition is plug-in, it will be automatic mounted. NAS reboot is needed to take effect.
 
-![image](https://raw.githubusercontent.com/luckylz2git/exfat-synology/master/images/mount_status.png)
+Task 4 name: manual-mode
+Run command:
+```
+/usr/local/exfat-synology/exfat.sh manual root 12345
+```
+Description: turn off auto mount function, you can still mount exfat disk partition by task: mount-exfat. No need to add mountpoint as a parameter, no need to reboot.
 
-8.Manual unmount exfat partition, close all file station or any telnet connection which access to the mount partition, run the task unmount exfat in the [Task Scheduler];
+####6. Now the exfat mount functions are ready to use!
 
-![image](https://raw.githubusercontent.com/luckylz2git/exfat-synology/master/images/unmount_exfat.png)
+##Manual Mount & Eject
 
-![image](https://raw.githubusercontent.com/luckylz2git/exfat-synology/master/images/unmount_status.png)
+####1. Plug-in USB exfat disk partition;
 
-9.Go to [Control Panel] -> [External Devices], to eject the USB device;
+####2. [Control Panel] -> [Task Scheduler], run the task [mount-exfat];
+
+####3. Use the data on the mountpoint: /volume1/usbexfat;
+
+####4. After use, close all the [File Station], and any connections to the mountpoint, e.g. Telnet;
+
+####5. [Control Panel] -> [Task Scheduler], run the task [eject-exfat];
+
+##Auto Mount & Eject
+
+####1. [Control Panel] -> [Task Scheduler], run the task [autorun-mode], reboot the NAS;
+
+####2. Plug-in USB exfat disk partition, and wait for 15 seconds;
+
+####3. Use the data on the mountpoint: /volume1/usbexfat;
+
+####4. After use, close all the [File Station], and any connections to the mountpoint, e.g. Telnet;
+
+####5. [Control Panel] -> [Task Scheduler], run the task [eject-exfat];
+
+##Switch Back to Manual Mount
+
+####1. [Control Panel] -> [Task Scheduler], run the task [manual-mode];
+
+####2. Done!
