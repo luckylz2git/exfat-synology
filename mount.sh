@@ -3,6 +3,7 @@
 USB=$(echo "$@" | grep "volumeUSB")
 #usb types
 if [ -n "$USB" ]; then
+    USBSYNC="/bin/usbsync.sh"
     #exfat partition
     if [ "$2" == "exfat" ]; then
         m=$(/bin/mount.bin | grep "$5")
@@ -12,15 +13,15 @@ if [ -n "$USB" ]; then
             n=${n%%/usbshare}
             MOUNTPOINT="/volume1/usbexfat/usbshare$n"
             /bin/mount.exfat-fuse "$5" "$MOUNTPOINT" -o nonempty
-            if [ -f /bin/autosync.sh ]; then
-                /bin/autosync.sh "$5" "$MOUNTPOINT" &
+            if [ -f "$USBSYNC" ]; then
+                "$USBSYNC" "$5" "$MOUNTPOINT" &
             fi
         fi
     #fat32 partition
     elif [ "$2" == "vfat" ]; then
         /bin/mount.bin "$@" &
-        if [ -f /bin/autosync.sh ]; then
-            /bin/autosync.sh "$5" "$6" &
+        if [ -f "$USBSYNC" ]; then
+            "$USBSYNC" "$5" "$6" &
         fi
     #others partition
     else

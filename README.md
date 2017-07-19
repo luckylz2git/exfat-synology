@@ -71,3 +71,4 @@ mv /tmp/synocheckshare.sh /usr/syno/bin/synocheckshare
 
 **[ 6 ]** Now the exfat partition can be automatically mount!
 
+**[ 7 ]** Post-Mount automatically function 1, incremental backup for DSLR
