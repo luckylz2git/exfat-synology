@@ -1,5 +1,5 @@
-#read and write exFAT driver for FUSE
+#read and write exFAT driver for FUSE (1.2.3-1)
 
-http://packages.ubuntu.com/trusty/exfat-fuse
+https://packages.ubuntu.com/xenial/exfat-fuse
 
-http://packages.ubuntu.com/trusty/i386/exfat-fuse/download
+https://packages.ubuntu.com/xenial/amd64/exfat-fuse/download
