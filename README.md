@@ -50,6 +50,14 @@ volumeUSB[n]/usbshare will be mapped to /volume1/usbexfat/usbshare[n]
 **P.S.**
 
 If your own mountpoint does not look like /volume1/usbexfat/usbshare[1...n], you need to modify mountpoint in the mount.sh!
+```
+...
+/bin/mount.exfat-fuse "$5" "/volume1/usbexfat/usbshare$n" -o nonempty
+if [ -f /bin/autosync.sh ]; then
+    /bin/autosync.sh "$5" "/volume1/usbexfat/usbshare$n" &
+fi
+...
+```
 
 **[ 5 ]** Copy the files from this repository, and override some system files
 ```
