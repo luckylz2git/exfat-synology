@@ -47,6 +47,10 @@ volumeUSB2/usbshare will be mapped to /volume1/usbexfat/usbshare2
 
 volumeUSB[n]/usbshare will be mapped to /volume1/usbexfat/usbshare[n]
 
+**P.S.**
+
+If your own mountpoint does not look like /volume1/usbexfat/usbshare[1...n], you need to modify mountpoint in the mount.sh!
+
 **[ 5 ]** Copy the files from this repository, and override some system files
 ```
 wget -P /tmp/ https://github.com/luckylz2git/exfat-synology/raw/master/mount.sh --no-check-certificate
