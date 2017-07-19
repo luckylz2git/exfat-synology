@@ -43,15 +43,15 @@ Settings=$DefaultDir/usbsync.cfg
 if [ -f "$Settings" ]; then
 	touch "$Settings"	
 fi
-SourceDirectory=$(cat "$Settings" | grep 'SourceDirectory')
-if [ -n "$SourceDirectory" ]; then
-	SrcDir=$MountPoint/${SourceDirectory#*:}
+SourceDir=$(cat "$Settings" | grep 'SourceDir')
+if [ -n "$SourceDir" ]; then
+	SrcDir=$MountPoint/${SourceDir#*:}
 else
 	SrcDir=$MountPoint/
 fi
-DestinationDirectory=$(cat "$Settings" | grep 'DestinationDirectory')
-if [ -n "$DestinationDirectory" ]; then
-	DestDir=${DestinationDirectory#*:}
+BackupDir=$(cat "$Settings" | grep 'BackupDir')
+if [ -n "$BackupDir" ]; then
+	DestDir=${BackupDir#*:}
 else
 	DestDir=$DefaultDir
 fi
