@@ -49,12 +49,12 @@ volumeUSB[n]/usbshare will be mapped to /volume1/usbexfat/usbshare[n]
 
 **[ 5 ]** Copy the files from this repository, and override some system files
 ```
-wget -P /tmp/  --no-check-certificate
+wget -P /tmp/ https://github.com/luckylz2git/exfat-synology/raw/master/mount.sh --no-check-certificate
 chmod 755 /tmp/mount.sh
 mv /bin/mount /bin/mount.bin
 mv /tmp/mount.sh /bin/mount
 
-wget -P /tmp/  --no-check-certificate
+wget -P /tmp/ https://github.com/luckylz2git/exfat-synology/raw/master/synocheckshare.sh --no-check-certificate
 chmod 755 /tmp/synocheckshare.sh
 mv /usr/syno/bin/synocheckshare /usr/syno/bin/synocheckshare.bin
 mv /tmp/synocheckshare.sh /usr/syno/bin/synocheckshare
