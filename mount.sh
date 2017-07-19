@@ -10,9 +10,10 @@ if [ -n "$USB" ]; then
             n="$6"
             n=${n#*/volumeUSB}
             n=${n%%/usbshare}
-            /bin/mount.exfat-fuse "$5" "/volume1/usbexfat/usbshare$n" -o nonempty
+            MOUNTPOINT="/volume1/usbexfat/usbshare$n"
+            /bin/mount.exfat-fuse "$5" "$MOUNTPOINT" -o nonempty
             if [ -f /bin/autosync.sh ]; then
-                /bin/autosync.sh "$5" "/volume1/usbexfat/usbshare$n" &
+                /bin/autosync.sh "$5" "$MOUNTPOINT" &
             fi
         fi
     #fat32 partition
