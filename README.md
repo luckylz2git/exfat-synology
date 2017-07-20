@@ -71,4 +71,6 @@ mv /tmp/synocheckshare.sh /usr/syno/bin/synocheckshare
 
 **[ 6 ]** Now the exfat partition can be automatically mount!
 
-**[ 7 ]** Post-Mount automatically function 1, incremental backup for DSLR
+**[ 7 ]** Post-Mount automatically function 1, incremental usbsync for DSLR Photos & Videos
+
+[usbsync](https://github.com/luckylz2git/exfat-synology/tree/master/usbsync)
