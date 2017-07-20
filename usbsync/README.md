@@ -36,11 +36,11 @@ Source sync sub directory of USB, default is DCIM
 SourceDir:DCIM
 ```
 
-File extension filter that will be synced, semicolon seperated
+File extension filter that will be synced, semicolon (;) seperated. Default (*) means sync all files
 ```
 FileExtension:*
 or
-FileExtension:nef,jpg,mov
+FileExtension:nef;jpg;mov
 ```
 
 Backup target directory
@@ -58,4 +58,11 @@ IncludeUUID:b1912eac1eb562007524467b58f3423f,EXAMPLE_USB_UUID1
 IncludeUUID:c1912eac1eb562007524467b58f3423f,EXAMPLE_USB_UUID2
 ...
 ```
-P.S. - Copy this from file usb-uuid.log in BackupDir, the [usb_infomation] is optional to discribe the USB Information.
+P.S. - Copy this from file usb-uuid.log in BackupDir (/volume1/PhotoImported) after USB plug-in to the NAS. The [usb_infomation] is optional to discribe the USB Information.
+``
+example usb-uuid.log
+
+USB Disk: /dev/sdu
+Device: /dev/sdu1
+UUID: b1912eac1eb562007524467b58f3423f
+```
