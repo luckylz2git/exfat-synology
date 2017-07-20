@@ -69,7 +69,7 @@ mv /usr/syno/bin/synocheckshare /usr/syno/bin/synocheckshare.bin
 mv /tmp/synocheckshare.sh /usr/syno/bin/synocheckshare
 ```
 
-**[ 6 ]** Now the exfat partition can be automatically mount! And also can eject the disk from File Station.
+**[ 6 ]** Now the exfat partition can be automatically mount! And also can eject the disk from DiskStation Webpage.
 
 **[ 7 ]** Post-Mount automatically function 1, incremental usbsync for DSLR Photos & Videos
 
