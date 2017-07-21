@@ -16,7 +16,7 @@ Differ from [USB Copy] package of Synology, which will reimport the files again 
 ```
 wget -P /tmp/ https://github.com/luckylz2git/exfat-synology/raw/master/usbsync/usbsync.sh --no-check-certificate
 chmod 755 /tmp/usbsync.sh
-mv /bin/usbsync.sh
+mv /tmp/usbsync.sh /bin/usbsync.sh
 
 wget -P /tmp/ https://github.com/luckylz2git/exfat-synology/raw/master/usbsync/usbsync.cfg --no-check-certificate
 chmod 666 /tmp/usbsync.cfg
