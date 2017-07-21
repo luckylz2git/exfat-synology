@@ -77,6 +77,15 @@ mv /tmp/synocheckshare.sh /usr/syno/bin/synocheckshare
 
 2. Automatically Rename Photos & Videos, visit: [exifname](https://github.com/luckylz2git/exfat-synology/tree/master/exifname).
 
+##Upgrade
+
+SSH or Telnet:
+```
+wget -P /tmp/ https://github.com/luckylz2git/exfat-synology/raw/master/upgrade.sh --no-check-certificate
+chmod 755 /tmp/upgrade.sh
+/tmp/upgrade.sh
+```
+
 ##Uninstall
 
 SSH or Telnet:
