@@ -112,6 +112,11 @@ function UmountDisk() {
 	echo >> $RsyncLog
 	echo >> $RsyncLog
 	cat $RsyncLog >> $DestDir/import_history.log
+
+	EXIFNAME="$DestDir/exifname.sh"
+	if [ -f "$EXIFNAME" ]; then
+		"$EXIFNAME" &
+	fi
 }
 #load history record
 OldFiles=$DestDir/\@eaDir/copied.log
