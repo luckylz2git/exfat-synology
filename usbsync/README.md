@@ -1,4 +1,4 @@
-#Incremental import for DSLR photos
+#Incremental import for DSLR photos & videos
 
 **Functionality**
 
@@ -12,7 +12,7 @@ Differ from [USB Copy] package of Synology, which will reimport the files again 
 
 **[ 1 ]** Go to Synology DiskStation, [Control Panel] -> [Shared Folder], create a shared folder on volume1, e.g. PhotoImported.
 
-**[ 2 ]** Copy the the following files to related directories
+**[ 2 ]** Copy the the following files to related directories, via SSH or Telnet:
 ```
 wget -P /tmp/ https://github.com/luckylz2git/exfat-synology/raw/master/usbsync/usbsync.sh --no-check-certificate
 chmod 755 /tmp/usbsync.sh
@@ -29,7 +29,7 @@ DefaultDir=/volume1/PhotoImported
 ...
 ```
 
-**[3]** Setup usbsnyc.cfg
+**[3]** Edit usbsnyc.cfg use any text editors:
 
 Enable or disable auto sync function
 ```
@@ -69,7 +69,7 @@ IncludeUUID:c1912eac1eb562007524467b58f3423f,EXAMPLE_USB_UUID2
 ...
 ```
 P.S. - Copy this from file usb-uuid.log in BackupDir (/volume1/PhotoImported) after USB plug-in to the NAS. The [usb_infomation] is optional to discribe the USB Information.
-``
+```
 example usb-uuid.log
 
 USB Disk: /dev/sdu
