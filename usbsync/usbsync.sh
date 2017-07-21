@@ -59,14 +59,14 @@ if [ ! -d "$DestDir" ]; then
 	mkdir -p "$DestDir"
 fi
 function CheckDisk() {
-	echo "Disk"${DiskInfo#*"$DiskName"} > /tmp/uuid.usb"$PID"
+	echo "Disk"${DiskInfo#*"$DiskName"} > /tmp/usb.hash"$PID"
 	DevInfo=$(fdisk -l | grep "$DevName")
-	echo "Device "${DevInfo#*"$DevName"} >> /tmp/uuid.usb"$PID"
-	echo "USB Disk: $DiskName" > $DestDir/usb-uuid.log
-	echo "Device: $DevName" >> $DestDir/usb-uuid.log
-	UUID=$(md5sum /tmp/uuid.usb"$PID" | awk '{ print $1 }')
-	echo "UUID: $UUID" >> $DestDir/usb-uuid.log
-	rm -f /tmp/uuid.usb"$PID"
+	echo "Device "${DevInfo#*"$DevName"} >> /tmp/usb.hash"$PID"
+	echo "USB Disk: $DiskName" > $DestDir/usbhash.log
+	echo "Device: $DevName" >> $DestDir/usbhash.log
+	UUID=$(md5sum /tmp/usb.hash"$PID" | awk '{ print $1 }')
+	echo "USBHash: $UUID" >> $DestDir/usbhash.log
+	rm -f /tmp/usb.hash"$PID"
 }
 CheckDisk
 AutoSync=$(cat "$Settings" | grep 'AutoSync')
@@ -75,8 +75,8 @@ if [ "$AutoSync" != "true" ]; then
 	CleanUpLog
 	exit 0
 fi
-IncludeUUID=$(cat "$Settings" | grep 'IncludeUUID' | grep "$UUID")
-if [ -z "$IncludeUUID" ]; then
+USBHash=$(cat "$Settings" | grep 'USBHash' | grep "$UUID")
+if [ -z "$USBHash" ]; then
 	CleanUpLog
 	exit 0
 fi	
@@ -123,7 +123,7 @@ NewFiles=/tmp/new.files"$PID".list
 SyncList=/tmp/sync.files"$PID".list
 if [ ! -d "$SrcDir" ]; then
 	echo `date` > $RsyncLog
-	echo "UUID: $UUID" >> $RsyncLog
+	echo "USBHash: $UUID" >> $RsyncLog
 	echo "Found 0 New File(s) in" $SrcDir >> $RsyncLog
 	UmountDisk
 	sleep 5
@@ -162,7 +162,7 @@ do
 done
 #
 echo `date` > $RsyncLog
-echo "UUID: $UUID" >> $RsyncLog
+echo "USBHash: $UUID" >> $RsyncLog
 echo "Found" $c "New File(s) in" $SrcDir >> $RsyncLog
 #sync new files
 if [ -f "$SyncList" ]; then

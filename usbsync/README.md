@@ -6,7 +6,7 @@ Differ from [USB Copy] package of Synology, which will reimport the files again 
 
 [usbsync] uses another mechanism to proceed the incremental import. Once any file is imported, [usbsync] won't import it again, even the file is moved or deleted from the Import Directory. This is more suitable for DSLR photos & videos import workflow. Because after importing data into the NAS, users always like to rename the files and create new folders to keep different photos & videos.
 
-[usbsync] will keep 180 days imported files information in the hidden sub dir @eaDir of the Backup Directory, named copied.log. Earlier than 180 days, the imported history will be deleted to save the disk space.
+[usbsync] will keep recent 180 days imported file list in the hidden sub dir @eaDir of the Backup Directory, named copied.log. Files imported earlier than 180 days, imported history (only the history, not the phisycal files) will be deleted from the list to save the disk space.
 
 **How To Setup**
 
@@ -58,21 +58,20 @@ Destination import target directory
 ImportDir:/volume1/PhotoImported
 ```
 
-Filter USB UUID Can Run Sync. 
-If multiple USB need to be synced, input multiple lines of USB UUID as the following:
+Register USB Hash to Sync.
+If multiple USB need to be synced, input multiple lines of USB Hash as the following:
 ```
-IncludeUUID:[usb_uuid1][,usb_infomation1]
-IncludeUUID:[usb_uuid2][,usb_infomation2]
+USBHash:[usb_hash_value1][,usb_dev_info1]
+USBHash:[usb_hash_value2][,usb_dev_info2]
 ...
-IncludeUUID:b1912eac1eb562007524467b58f3423f,EXAMPLE_USB_UUID1
-IncludeUUID:c1912eac1eb562007524467b58f3423f,EXAMPLE_USB_UUID2
+USBHash:d1912eac1eb562007524467b58f3423f,EXAMPLE_USB_DEVICE1
+USBHash:e1912eac1eb562007524467b58f3423f,EXAMPLE_USB_DEVICE2
 ...
 ```
-P.S. - Copy this from file usb-uuid.log in BackupDir (/volume1/PhotoImported) after USB plug-in to the NAS. The [usb_infomation] is optional to discribe the USB Information.
+P.S. - Copy this from file usbhash.log in BackupDir (/volume1/PhotoImported) after USB plug-in to the NAS. The [usb_dev_info1] is optional input by user, to discribe the USB device. The contents of usbhash.log looks like:
 ```
-example usb-uuid.log
-
 USB Disk: /dev/sdu
 Device: /dev/sdu1
-UUID: b1912eac1eb562007524467b58f3423f
+USBHash: d1912eac1eb562007524467b58f3423f
 ```
+Eject & plug-in the USB device again, the sync will start. Repeat this step to register another USB device.
