@@ -80,7 +80,7 @@ if [ -z "$USBHash" ]; then
 	CleanUpLog
 	exit 0
 fi	
-RsyncLog=$DestDir/usbsync.log
+RsyncLog=$DestDir/import_latest.log
 rm -f $RsyncLog
 FileExtension=$(cat "$Settings" | grep 'FileExtension')
 if [ -n "$FileExtension" ]; then
@@ -111,7 +111,7 @@ function UmountDisk() {
 	echo >> $RsyncLog
 	echo >> $RsyncLog
 	echo >> $RsyncLog
-	cat $RsyncLog >> $DestDir/history.log
+	cat $RsyncLog >> $DestDir/import_history.log
 }
 #load history record
 OldFiles=$DestDir/\@eaDir/copied.log

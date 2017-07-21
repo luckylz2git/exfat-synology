@@ -68,10 +68,14 @@ USBHash:d1912eac1eb562007524467b58f3423f,EXAMPLE_USB_DEVICE1
 USBHash:e1912eac1eb562007524467b58f3423f,EXAMPLE_USB_DEVICE2
 ...
 ```
-P.S. - Copy this from file usbhash.log in BackupDir (/volume1/PhotoImported) after USB plug-in to the NAS. The [usb_dev_info1] is optional input by user, to discribe the USB device. The contents of usbhash.log looks like:
+P.S. - Copy this from file usbhash.log in ImportDir (/volume1/PhotoImported) after USB plug-in to the NAS. The [usb_dev_info1] is optional input by user, to discribe the USB device. The contents of usbhash.log looks like:
 ```
 USB Disk: /dev/sdu
 Device: /dev/sdu1
 USBHash: d1912eac1eb562007524467b58f3423f
 ```
 Eject & plug-in the USB device again, the sync will start. Repeat this step to register another USB device.
+
+**[4]** Verify import result:
+
+The latest import log will keep in ImportDir (/volume1/PhotoImported) named import_latest.log, old import history log named import_history.log
