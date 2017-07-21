@@ -1,4 +1,14 @@
-#Incremental backup for DSLR photos
+#Incremental import for DSLR photos
+
+**Functionality**
+
+Differ from [USB Copy] package of Synology, which will reimport the files again if user move or delete files in the Destination Directory.
+
+[usbsync] uses another mechanism to proceed the incremental import. Once any file is imported, [usbsync] won't import it again, even the file is moved or deleted from the Import Directory. This is more suitable for DSLR photos & videos import workflow. Because after importing data into the NAS, users always like to rename the files and create new folders to keep different photos & videos.
+
+[usbsync] will keep 180 days imported files information in the hidden sub dir @eaDir of the Backup Directory, named copied.log. Earlier than 180 days, the imported history will be deleted to save the disk space.
+
+**How To Setup**
 
 **[ 1 ]** Go to Synology DiskStation, [Control Panel] -> [Shared Folder], create a shared folder on volume1, e.g. PhotoImported.
 
@@ -43,9 +53,9 @@ or
 FileExtension:nef;jpg;mov
 ```
 
-Backup target directory
+Destination import target directory
 ```
-BackupDir:/volume1/PhotoImported
+ImportDir:/volume1/PhotoImported
 ```
 
 Filter USB UUID Can Run Sync. 

@@ -49,9 +49,9 @@ if [ -n "$SourceDir" ]; then
 else
 	SrcDir=$MountPoint/
 fi
-BackupDir=$(cat "$Settings" | grep 'BackupDir')
-if [ -n "$BackupDir" ]; then
-	DestDir=${BackupDir#*:}
+ImportDir=$(cat "$Settings" | grep 'ImportDir')
+if [ -n "$ImportDir" ]; then
+	DestDir=${ImportDir#*:}
 else
 	DestDir=$DefaultDir
 fi
