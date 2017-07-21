@@ -79,3 +79,10 @@ Eject & plug-in the USB device again, the sync will start. Repeat this step to r
 **[4]** Verify import result:
 
 The latest import log will keep in ImportDir (/volume1/PhotoImported) named import_latest.log, old import history log named import_history.log
+
+**How To Uninstall**
+
+SSH or Telnet:
+```
+rm -f /bin/usbsync.sh
+```

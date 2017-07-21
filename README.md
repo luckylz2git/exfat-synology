@@ -74,3 +74,17 @@ mv /tmp/synocheckshare.sh /usr/syno/bin/synocheckshare
 **[ 7 ]** Post-Mount automatically function 1, incremental import for DSLR Photos & Videos
 
 Visit [usbsync](https://github.com/luckylz2git/exfat-synology/tree/master/usbsync)
+
+##Uninstall
+
+SSH or Telnet:
+```
+if [ -f /usr/syno/bin/synocheckshare.bin ]; then
+    rm /usr/syno/bin/synocheckshare
+    mv /usr/syno/bin/synocheckshare.bin /usr/syno/bin/synocheckshare
+fi
+if [ -f /bin/mount.bin ]; then
+    rm /bin/mount
+    mv /bin/mount.bin /bin/mount
+fi
+```
