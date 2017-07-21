@@ -6,8 +6,6 @@ Differ from [USB Copy] package of Synology, which will reimport the files again 
 
 [usbsync] uses another mechanism to proceed the incremental import. Once any file is imported, [usbsync] won't import it again, even the file is moved or deleted from the Import Directory. This is more suitable for DSLR photos & videos import workflow. Because after importing data into the NAS, users always like to rename the files and create new folders to keep different photos & videos.
 
-[usbsync] will keep recent 180 days imported file list in the hidden sub dir @eaDir of the Backup Directory, named copied.log. Files imported earlier than 180 days, imported history (only the history, not the phisycal files) will be deleted from the list to save the disk space.
-
 **How To Setup**
 
 **[ 1 ]** Go to Synology DiskStation, [Control Panel] -> [Shared Folder], create a shared folder on volume1, e.g. PhotoImported.

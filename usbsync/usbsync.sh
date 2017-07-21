@@ -184,25 +184,3 @@ rm -f $AllFiles
 UmountDisk
 sleep 10
 CleanUpLog
-
-#remove copied.log lines before 180 days ago
-#180*24*60*60=15552000 seconds
-function CleanOldFiles() {
-	rm -f "$OldFiles.new"
-	n=1
-	c=0
-	while ((n<=$(cat $OldFiles | wc -l)))
-	do
-		FileInfo=$(cat $OldFiles | sed -n "${n} p")
-		if [ -n "$FileInfo" ]; then
-			t2=$(date +%s -d "$(echo "$FileInfo" | awk '{ print $2 }')")
-			if [ $(($t-$t2)) -lt 15552000 ]; then
-				echo "$FileInfo" >> "$OldFiles.new"
-			fi
-		fi
-		((n+=1))
-	done
-	mv -f "$OldFiles.new" "$OldFiles"
-}
-CleanOldFiles
-
