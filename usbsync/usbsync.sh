@@ -3,6 +3,13 @@
 #usage 
 #/bin/usbsync.sh [mountdevice] [mountpoint]
 #/bin/usbsync.sh /dev/sdu1 /volume1/usbexfat/usbshare1
+
+#require settingss
+DefaultDir=/volume1/PhotoImported
+Settings=$DefaultDir/usbsync.cfg
+if [ ! -f "$Settings" ]; then
+	exit 0
+fi	
 MountDevice="$1"
 MountPoint="$2"
 PID="$$"
@@ -38,11 +45,6 @@ ls -r "$MountPoint"
 DevName=$(/bin/mount.bin | grep "$(dirname $MountPoint)/$(basename $MountPoint)" | awk '{ print $1 }')
 DiskName=$(echo "$DevName" | sed 's/[0-9]//g')
 #load settings
-DefaultDir=/volume1/PhotoImported
-Settings=$DefaultDir/usbsync.cfg
-if [ -f "$Settings" ]; then
-	touch "$Settings"	
-fi
 SourceDir=$(cat "$Settings" | grep 'SourceDir')
 if [ -n "$SourceDir" ]; then
 	SrcDir=$MountPoint/${SourceDir#*:}
