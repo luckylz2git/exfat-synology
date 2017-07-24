@@ -11,7 +11,22 @@ if [ -n "$USB" ]; then
             n="$6"
             n=${n#*/volumeUSB}
             n=${n%%/usbshare}
-            MOUNTPOINT="/volume1/usbexfat/usbshare$n"
+            #first, get samba shared folder by default
+            MOUNTDIR=$(cat /etc/samba/smb.share.conf | grep 'path=' | grep 'usbexfat')
+            if [ -n "$MOUNTDIR" ]; then
+                MOUNTDIR=${MOUNTDIR#*=}
+            else
+                #second, get any dir named: usbexft
+                MOUNTDIR=$(find /volume*/usbexfat -name 'usbexfat' -type d | sed -n '1p')
+                if [ -z "$MOUNTDIR" ]; then
+                    #third, get the first volume and create dir usbexfat
+                    MOUNTDIR=$(find /volume* -type d | sed -n '1p')"/usbexfat"
+                fi                
+            fi
+            MOUNTPOINT="$MOUNTDIR/usbshare$n"
+            if [ ! -d "$MOUNTPOINT" ]; then
+                mkdir -p "$MOUNTPOINT"
+            fi
             /bin/mount.exfat-fuse "$5" "$MOUNTPOINT" -o nonempty
             if [ -f "$USBSYNC" ]; then
                 "$USBSYNC" "$5" "$MOUNTPOINT" &

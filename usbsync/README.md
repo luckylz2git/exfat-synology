@@ -34,7 +34,7 @@ Enable or disable auto sync function
 AutoSync:[true | false]
 ```
 
-Enable or disable auto unmount after sync complete
+Enable or disable auto unmount after sync complete. If enabled, the mount point /volume*/usbexfat/usbshare* will be deleted after unmount.
 ```
 AutoUnmount:[true | false]
 ```

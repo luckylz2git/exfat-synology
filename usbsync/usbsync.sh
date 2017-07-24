@@ -109,6 +109,11 @@ function UmountDisk() {
 		echo "Unmounted" "$MountPoint" >> $RsyncLog
 		/sbin/eject -F "$DevName"
 		echo "Ejected" "$DevName" >> $RsyncLog
+		sleep 2
+		ISEXFAT=$(echo "$MountPoint" | grep 'usbexfat')
+		if [ -n "$ISEXFAT" ]; then
+			rm -R "$MountPoint"
+		fi
 	fi
 	echo >> $RsyncLog
 	echo >> $RsyncLog

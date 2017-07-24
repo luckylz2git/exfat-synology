@@ -49,6 +49,16 @@ volumeUSB[n]/usbshare will be mapped to /volume1/usbexfat/usbshare[n]
 
 **P.S.**
 
+It will automatically check any direction named: usbexfat in the system as the following orders:
+
+1. samba shared folder named: usbexfat;
+2. the first volume which does contain the dir name: usbexfat, if not No.1;
+3. the first volume which does not contain the dir name: usbexfat, if not No.2.
+
+No matter what, the dir /volume*/usbexfat will be created. If it is not shared, then it stays invisible.
+
+**P.S.**
+
 If your own mountpoint does not look like /volume1/usbexfat/usbshare[1...n], you need to modify mountpoint in the mount.sh!
 ```
 ...
