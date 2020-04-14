@@ -156,29 +156,17 @@ else
 fi
 #cat $AllFiles
 #exit 0
-n=1
-c=0
-while ((n<=$(cat $AllFiles | wc -l)))
-do
-	FileInfo=$(cat $AllFiles | sed -n "${n} p")
-	if [ -n "$FileInfo" ]; then
-		MainInfo=${FileInfo%%/*}`basename ${FileInfo#*/}`
-		IsOldFile=`cat $OldFiles | grep "$(echo $MainInfo | sed 's/ /\\ /g')"`
-		if [ -z "$IsOldFile" ]; then
-			echo $MainInfo >> $NewFiles
-			echo ${FileInfo#*$SrcDir/} >> $SyncList
-			((c+=1))
-		fi
-	fi
-	((n+=1))
-done
+
+awk '{split($NF, a, "/"); n=length(a); t=$NF; $NF=a[n]; print $0, t}'  $AllFiles | fgrep -vf $OldFiles | tee $NewFiles | awk '{print $NF}' | sed "s#$SrcDir##" > $SyncList
+awk '{NF-=1; print}' $NewFiles | tee $NewFiles
+
 #
 echo `date` > $RsyncLog
 echo "USBHash: $UUID" >> $RsyncLog
 echo "Found" $c "New File(s) in" $SrcDir >> $RsyncLog
 #sync new files
 if [ -f "$SyncList" ]; then
-	rsync -av --files-from=$SyncList $SrcDir $DestDir >> $RsyncLog
+	rsync -av --files-from=$SyncList $SrcDir $DestDir >> $RsyncLog || { CleanUpLog; exit 1; }
 	rm -f $SyncList
 fi
 #save list to OldFiles
